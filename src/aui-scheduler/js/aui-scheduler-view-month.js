@@ -176,6 +176,30 @@ var SchedulerMonthView = A.Component.create({
         },
 
         /**
+         * Returns the current interval end by finding the number of weeks
+         * with the `Scheduler`'s `todayDate` and `firstDayOfWeek` and calculating
+         * the number of days to display in the current month.
+         *
+         * @method _findCurrentIntervalEnd
+         * @protected
+         * @return {Date} The current interval end from the amount of days in the
+         * in the month's view added to the 'startDate' of the calendar month.
+         */
+        _findCurrentIntervalEnd: function() {
+            var instance = this;
+            var scheduler = instance.get('scheduler');
+            var todayDate = scheduler.get('todayDate');
+            var firstDayOfWeek = scheduler.get('firstDayOfWeek');
+
+            var weeks = DateMath.getWeeksInMonth(todayDate, firstDayOfWeek);
+
+            var startDate = instance._findCurrentIntervalStart();
+            var daysAmount = instance.getWeekDaysCount() * weeks - 1;
+
+            return DateMath.add(startDate, DateMath.DAY, daysAmount);
+        },
+
+        /**
          * Returns the current interval start by finding the first day of the
          * week with the `Scheduler`'s `viewDate`.
          *

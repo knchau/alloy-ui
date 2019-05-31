@@ -944,6 +944,39 @@ A.mix(A.DataType.DateMath, {
     },
 
     /**
+     * Gets number of weeks from a given date and first day of the week.
+     *
+     * @method getWeeksInMonth
+     * @param date
+     * @param firstDayOfWeek
+     * @return {Number}
+     */
+    getWeeksInMonth: function(date, firstDayOfWeek) {
+        var daysInMonth = this.getDaysInMonth(
+            date.getFullYear(),
+            date.getMonth()
+        );
+        var firstWeekDay =
+            this.getDate(
+                date.getFullYear(),
+                date.getMonth(),
+                1
+            ).getDay() - firstDayOfWeek;
+
+        if (firstWeekDay < 0) {
+            firstWeekDay = firstWeekDay + 7;
+        }
+
+        var daysInFirstWeek = this.WEEK_LENGTH - firstWeekDay;
+
+        return (
+            Math.ceil(
+                (daysInMonth - daysInFirstWeek) / this.WEEK_LENGTH
+            ) + 1
+        );
+    },
+
+    /**
      * Converts a date to US time format.
      *
      * @method toUsTimeString

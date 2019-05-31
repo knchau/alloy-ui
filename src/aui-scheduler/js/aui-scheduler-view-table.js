@@ -625,11 +625,11 @@ var SchedulerTableView = A.Component.create({
          *   keys are interpreted as unlimited sides of the interval.
          */
         getDateInterval: function() {
-            var daysAmount = this.getWeekDaysCount() * this._getDisplayRowsCount() - 1,
-                startDate = this._findCurrentIntervalStart();
+            var startDate = this._findCurrentIntervalStart(),
+                endDate = this._findCurrentIntervalEnd();
 
             return {
-                endDate: DateMath.toLastHour(DateMath.add(startDate, DateMath.DAY, daysAmount)),
+                endDate: DateMath.toLastHour(endDate),
                 startDate: DateMath.toMidnight(startDate)
             };
         },
