@@ -457,6 +457,26 @@ A.mix(A.DataType.DateMath, {
     },
 
     /**
+     * Determines whether a given date is the same date on the calendar.
+     *
+     * @method sameDay
+     * @param {Date} date The Date object to compare with the compare
+     *     argument
+     * @param {Date} compareTo The Date object to use for the comparison
+     * @return {Boolean} true if the date is the compared date; false
+     *     if not.
+     */
+    sameDay: function(date, compareTo) {
+        var ms = compareTo.getTime();
+        if (date.getTime() === ms) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    },
+
+    /**
      * Determines whether a given date is between two other dates on the
      * calendar.
      *
