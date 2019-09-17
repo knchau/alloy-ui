@@ -822,11 +822,20 @@ var SchedulerTableView = A.Component.create({
                 var firstDayOfWeek = scheduler.get('firstDayOfWeek');
                 var firstWeekDay = instance._findFirstDayOfWeek(todayDate);
 
+                var todayNumDate = todayDate.getDate();
+                var firstWeekNumDate = firstWeekDay.getDate();
+
                 var weeksInMonth = DateMath.getWeeksInMonth(todayDate, firstDayOfWeek);
 
                 var rowIndex = DateMath.getWeekNumber(todayDate, firstDayOfWeek) - DateMath.getWeekNumber(
                     intervalStartDate, firstDayOfWeek);
-                var colIndex = (todayDate.getDate() - firstWeekDay.getDate());
+                var colIndex = (todayNumDate - firstWeekNumDate);
+
+                if (firstWeekNumDate > todayNumDate) {
+                    colIndex = (DateMath.getDaysInMonth(
+                        firstWeekDay.getYear(), firstWeekDay.getMonth()) - firstWeekNumDate) + todayNumDate;
+                }
+
                 var celIndex = instance._getCellIndex([colIndex, rowIndex]);
 
                 var todayCel = instance.columnTableGrid.item(celIndex);
