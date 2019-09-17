@@ -167,8 +167,7 @@
 
 .scheduler-view-table-colgrid-today {
     background-color: #f2f2f2;
-    border: 1px solid #009be6;
-    border-bottom-width: 0;
+    border: 1px solid #009be6 !important;
 }
 
 .scheduler-view-table-data-col-title-today {
