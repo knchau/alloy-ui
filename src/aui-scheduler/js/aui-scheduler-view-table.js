@@ -816,7 +816,9 @@ var SchedulerTableView = A.Component.create({
             var intervalStartDate = instance._findCurrentIntervalStart();
             var intervalEndDate = instance._findCurrentIntervalEnd();
 
-            if (DateMath.between(todayDate, intervalStartDate, intervalEndDate)) {
+            if (DateMath.between(todayDate, intervalStartDate, intervalEndDate) ||
+                DateMath.sameDay(todayDate, intervalStartDate)) {
+
                 var firstDayOfWeek = scheduler.get('firstDayOfWeek');
                 var firstWeekDay = instance._findFirstDayOfWeek(todayDate);
 
