@@ -52,6 +52,7 @@ var Lang = A.Lang,
     CSS_SVT_TABLE_GRID = getCN('scheduler-view', 'table', 'grid'),
     CSS_SVT_TABLE_GRID_CONTAINER = getCN('scheduler-view', 'table', 'grid', 'container'),
     CSS_SVT_TABLE_GRID_FIRST = getCN('scheduler-view', 'table', 'grid', 'first'),
+    CSS_SVT_TABLE_GRID_LAST = getCN('scheduler-view', 'table', 'grid', 'last'),
 
     TPL_SVT_CONTAINER = '<div class="' + CSS_SVT_CONTAINER + '">' +
         '<div class="' + CSS_SVT_ROW_CONTAINER + '"></div>' +
@@ -818,8 +819,14 @@ var SchedulerTableView = A.Component.create({
                 var firstDayOfWeek = scheduler.get('firstDayOfWeek');
                 var firstWeekDay = instance._findFirstDayOfWeek(todayDate);
 
-                var rowIndex = DateMath.getWeekNumber(todayDate, firstDayOfWeek) - DateMath.getWeekNumber(
+                var intervalStartWeek = DateMath.getWeekNumber(
                     interval.startDate, firstDayOfWeek);
+                var intervalEndWeek = DateMath.getWeekNumber(
+                    interval.endDate, firstDayOfWeek);
+                var todayWeek = DateMath.getWeekNumber(
+                    todayDate, firstDayOfWeek);
+
+                var rowIndex = todayWeek - intervalStartWeek;
                 var colIndex = (todayDate.getDate() - firstWeekDay.getDate());
                 var celIndex = instance._getCellIndex([colIndex, rowIndex]);
 
@@ -827,6 +834,10 @@ var SchedulerTableView = A.Component.create({
 
                 if (todayCel) {
                     todayCel.addClass(CSS_SVT_COLGRID_TODAY);
+
+                    if (todayWeek >= intervalEndWeek) {
+                        todayCel.addClass(CSS_SVT_TABLE_GRID_LAST);
+                    }
                 }
             }
         },

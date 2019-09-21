@@ -170,6 +170,10 @@
     border: 1px solid #009be6 !important;
 }
 
+.scheduler-view-table-colgrid-today:not(.scheduler-view-table-grid-last) {
+    border-bottom-width: 0 !important;
+}
+
 .scheduler-view-table-data-col-title-today {
     color: #14a4e9;
     font-weight: bold;
