@@ -964,6 +964,31 @@ A.mix(A.DataType.DateMath, {
     },
 
     /**
+     * Returns the number of weeks in that month.
+     *
+     * @method getWeeksInMonth
+     * @param {Date} date The JavaScript date for which to find the week number
+     * @param {Number} firstDayOfWeek The index of the first day of the week (0
+     *     = Sun, 1 = Mon ... 6 = Sat). Defaults to 0
+     * @protected
+     */
+    getWeeksInMonth(date, firstDayOfWeek) {
+        var daysInMonth = this.getDaysInMonth(date.getFullYear(), date.getMonth());
+        var firstWeekDay =
+            this.getDate(date.getFullYear(), date.getMonth(), 1).getDay() - firstDayOfWeek;
+
+        if (firstWeekDay < 0) {
+            firstWeekDay = firstWeekDay + 7;
+        }
+
+        var daysInFirstWeek = this.WEEK_LENGTH - firstWeekDay;
+
+        return (
+            Math.ceil((daysInMonth - daysInFirstWeek) / this.WEEK_LENGTH) + 1
+        );
+    },
+
+    /**
      * Converts a date to US time format.
      *
      * @method toUsTimeString
